@@ -392,6 +392,7 @@ class DownloadWorker(context: Context, params: WorkerParameters) :
                         outputStream = context.contentResolver.openOutputStream(uri, "w")
                     } else {
                         val file = createFileInAppSpecificDir(actualFilename!!, savedDir)
+                        log("file =======> $file")
                         savedFilePath = file!!.path
                         outputStream = FileOutputStream(file, false)
                     }
