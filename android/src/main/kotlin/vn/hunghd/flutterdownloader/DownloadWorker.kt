@@ -391,6 +391,8 @@ class DownloadWorker(context: Context, params: WorkerParameters) :
                         savedFilePath = getMediaStoreEntryPathApi29(uri!!)
                         outputStream = context.contentResolver.openOutputStream(uri, "w")
                     } else {
+                        log("actualFilename =======> $actualFilename")
+                        log("savedDir =======> $savedDir")
                         val file = createFileInAppSpecificDir(actualFilename!!, savedDir)
                         log("file =======> $file")
                         savedFilePath = file!!.path
@@ -502,17 +504,23 @@ class DownloadWorker(context: Context, params: WorkerParameters) :
      */
     private fun createFileInAppSpecificDir(filename: String, savedDir: String): File? {
         val newFile = File(savedDir, filename)
+        log("createFileInAppSpecificDir: 1111111111")
         try {
             val rs: Boolean = newFile.createNewFile()
+            log("createFileInAppSpecificDir: 22222222222")
             if (rs) {
+                log("createFileInAppSpecificDir: 333333333333")
                 return newFile
             } else {
+                log("createFileInAppSpecificDir: 4444444444444")
                 logError("It looks like you are trying to save file in public storage but not setting 'saveInPublicStorage' to 'true'")
             }
         } catch (e: IOException) {
+            log("createFileInAppSpecificDir: 5555555555555")
             e.printStackTrace()
             logError("Create a file using java.io API failed ")
         }
+        log("createFileInAppSpecificDir: 666666666666666")
         return null
     }
 
